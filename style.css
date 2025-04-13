@@ -152,7 +152,7 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	background-color: red;
+	background-color: #f52e27;
 	width: 700px;
 	height: 650px;
 	border: 3.5px solid black;
@@ -165,7 +165,7 @@ body {
 	display: flex;
 	justify-content: center;
 	font-family: "Pixelify Sans", sans-serif;
-	color: rgb(249, 220, 56);
+	color: #FED777;
 	font-size: 50px;
 	font-weight: bold;
 	text-shadow: 5px 5px 2px black;
@@ -188,10 +188,12 @@ body {
 	display: flex;
 	/* help taken */
 	overflow: hidden;
+	/* border: 1px solid black; */
 }
 
 .minidivs {
 	width: 100%;
+	/* border: 1px solid black; */
 }
 
 /* Help Taken */
