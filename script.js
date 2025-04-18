@@ -1,11 +1,24 @@
-let pen = "#79BB59";
-
+let pen = "rgb(121, 187, 89)";
 let userInput = 16;
+let randomSwitch = false;
+let prevState = 0;
+
+// ------------------------------------------------------------State Values----------------------------------------------------------
+
+// -1 = pen
+// 0 = eraser
+// 1 = random colour
+
+// -------------------------------------------------------------User Input-----------------------------------------------------------
+
 gridGenerator(userInput);
 const grid = document.querySelector("#size");
 grid.addEventListener("click", () => {
   let userInput = prompt("enter the number of boxes");
-  if (userInput <= 100) {
+  if (userInput == null || userInput == undefined || userInput == "") {
+    gridGenerator(16);
+  }
+  else if (userInput <= 100) {
     gridGenerator(userInput);
   }
   else {
@@ -13,6 +26,7 @@ grid.addEventListener("click", () => {
   }
 })
 
+// ---------------------------------------------------------------Grid Generator-----------------------------------------------------
 
 function gridGenerator(userInput) {
   const container = document.querySelector(".container");
@@ -25,42 +39,53 @@ function gridGenerator(userInput) {
       divrow.appendChild(div)
       div.classList.add("minidivs")
       div.addEventListener("mouseover", () => {
-        div.style.backgroundColor = pen;
+        div.style.backgroundColor = colour();
       })
     }
     container.appendChild(divrow);
   }
 }
 
-// ---------------------------------------------------------------Events-----------------------------------------------------------
+// ---------------------------------------------------------------Eraser-----------------------------------------------------------
 
 const eraser = document.querySelector("#eraser");
 eraser.addEventListener("click", () => {
   if (pen == "transparent") {
-    pen = "#79BB59";
+    pen = "rgb(121, 187, 89)";
+    if (prevState == 1) {
+      randomSwitch = true;
+      return;
+    }
+    prevState = 0;
   }
   else {
+    prevState = randomSwitch ? 1 : -1;
     pen = "transparent";
   }
+  randomSwitch = false;
 })
+
+// -----------------------------------------------------------Reset Button----------------------------------------------------------
 
 const reset = document.querySelector("#reset")
 reset.addEventListener("click", () => {
   gridGenerator(16);
 })
 
-// let r = "transparent";
-// let g = "transparent";
-// let b = "transparent";
+// -----------------------------------------------------------Random Colour----------------------------------------------------------
 
-// function colour(r, g, b) {
-//   r = Math.floor(Math.random() * 100);
-//   g = Math.floor(Math.random() * 100);
-//   b = Math.floor(Math.random() * 100);
-//   return (r, g, b);
-// }
+function colour() {
+  if (randomSwitch) {
+    let r = Math.floor(Math.random() * 255);
+    let g = Math.floor(Math.random() * 255);
+    let b = Math.floor(Math.random() * 255);
+    return (`rgb(${r}, ${g}, ${b})`);
+  }
+  return (pen);
+}
 
-// const raindow = document.querySelector("#rainbow");
-// raindow.addEventListener("click", () => {
-//   pen = colour();
-// })
+const raindow = document.querySelector("#rainbow");
+raindow.addEventListener("click", () => {
+  if (randomSwitch) pen = 'rgb(121, 187, 89)';
+  randomSwitch = !randomSwitch;
+})
